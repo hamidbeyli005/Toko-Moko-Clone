@@ -4,6 +4,7 @@ function Home() {
   return (
     <>
       <Header />
+      <h1>ana sayfa yakında tasarlanacak...</h1>
     </>
   );
 }
