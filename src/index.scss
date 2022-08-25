@@ -58,6 +58,12 @@ body {
     }
   }
 }
-.ratingSlider{
-  padding: 60px 100px 60px 40px!important;
+.ratingSlider {
+  padding: 60px 100px 60px 40px !important;
+  @media (max-width: 992px) {
+    width: 100% !important;
+    padding: 60px   !important;
+
+  }
+ 
 }

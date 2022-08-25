@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Slider from "react-slick";
+import { useWindowWidth } from "@react-hook/window-size";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,6 +25,32 @@ const Rating = styled.h2`
 
   justify-content: center;
   height: 544px;
+  @media (max-width: 992px) {
+    writing-mode: horizontal-tb;
+    transform: rotate(0);
+    position: absolute;
+    top: 50px;
+    right: -100%;
+    /* transform: translateX(50%); */
+  }
+  @media (max-width: 767px) {
+    right: -120%;
+  }
+  @media (max-width: 575px) {
+    right: 14%;
+  }
+  @media (max-width: 550px) {
+    right: 8%;
+  }
+  @media (max-width: 500px) {
+    right: 3%;
+  }
+  @media (max-width: 400px) {
+    right: -4%;
+  }
+  @media (max-width: 350px) {
+    right: -10%;
+  }
 `;
 const Img = styled.img`
   height: 64px;
@@ -31,6 +58,9 @@ const Img = styled.img`
   position: absolute;
   top: 64px;
   left: 260px;
+  @media (max-width: 992px) {
+    display: none;
+  }
 `;
 
 const Icon = styled.img`
@@ -39,8 +69,10 @@ const Icon = styled.img`
   z-index: 5;
   top: 20px;
 
-  /* filter: opacity(100%); */
   left: 0;
+  @media (max-width: 992px) {
+    top: 50px;
+  }
 
   &#leftArrow {
     opacity: 0.4;
@@ -50,10 +82,21 @@ const Icon = styled.img`
     top: 9.4px;
     margin-left: 5px;
     left: 20px;
+    @media (max-width: 992px) {
+      top: 39.4px;
+    }
   }
 `;
 const Right = styled.div`
   padding-top: 70px;
+  @media (max-width: 992px) {
+    padding-top: 90px;
+    font-size: 16px;
+
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const Flex = styled.div`
   display: flex;
@@ -101,6 +144,8 @@ function SamplePrevArrow(props) {
 }
 
 function Ratings() {
+  const onlyWidth = useWindowWidth();
+
   let data = [
     {
       avatar: "/icons/avatar.png",
@@ -140,7 +185,6 @@ function Ratings() {
     swipeToSlide: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    
 
     afterChange: function (index) {
       if (index === 0) {
@@ -157,7 +201,7 @@ function Ratings() {
   };
   return (
     <Wrapper>
-      <Container fluid="lg">
+      <Container fluid="sm">
         <Row>
           <Col sm={5}>
             <Left>
@@ -165,7 +209,7 @@ function Ratings() {
               <Img src="/icons/quotes.png" alt="" />
             </Left>
           </Col>
-          <Col className="ratingSlider" sm={7}>
+          <Col className="ratingSlider" sm={onlyWidth > 992 ? "7" : "11"}>
             <Slider {...settings}>
               {data.map((user, index) => (
                 <Right key={index}>
