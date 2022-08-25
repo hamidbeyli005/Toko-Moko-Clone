@@ -50,7 +50,7 @@ const Icon = styled.img`
     margin-right: 30px;
   }
 
-  &#leftt {
+  &#left {
     transform: rotate(180deg);
     z-index: 5;
     @media (max-width: 1100px) {
@@ -61,33 +61,9 @@ const Icon = styled.img`
     }
   }
 `;
-const Banners = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 70px;
-  gap: 34px;
-  @media (max-width: 750px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-const Image = styled.img`
-  height: 278px;
-  width: 551px;
 
-  @media (max-width: 1300px) {
-    height: 259px;
-    width: 500px;
-  }
-  @media (max-width: 1200px) {
-    height: 239px;
-    width: 400px;
-  }
-  @media (max-width: 870px) {
-    height: 210px;
-    width: 350px;
-  }
-`;
+
+
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -107,7 +83,7 @@ function SamplePrevArrow(props) {
   return (
     <Icon
       className={className}
-      id="leftt"
+      id="left"
       style={{ ...style, display: "none" }}
       onClick={onClick}
       src="/icons/arrow2.png"
@@ -116,7 +92,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-function Popular({ title, banner }) {
+function NewPrice({ title }) {
   const settings = {
     className: "center",
     infinite: true,
@@ -148,9 +124,9 @@ function Popular({ title, banner }) {
 
     afterChange: function (index) {
       if (index === 0) {
-        document.getElementById("leftt").style.display = "none";
+        document.getElementById("left").style.display = "none";
       } else {
-        document.getElementById("leftt").style.display = "block";
+        document.getElementById("left").style.display = "block";
       }
     },
   };
@@ -218,17 +194,10 @@ function Popular({ title, banner }) {
             ))}
           </Slider>
         </Row>
-        {banner && (
-          <Row>
-            <Banners>
-              <Image src="/images/banner1.png" alt="" />
-              <Image src="/images/banner2.png" alt="" />
-            </Banners>
-          </Row>
-        )}
+       
       </Container>
     </Wrapper>
   );
 }
 
-export default Popular;
+export default NewPrice;
