@@ -99,7 +99,7 @@ const productCtrl = {
         sizeMore,
         category,
         size,
-        box,
+        box,gender
       } = req.body;
 
       const product = await Products.findOne({ product_id });
@@ -115,7 +115,7 @@ const productCtrl = {
         size,
         sizeMore,
         category,
-        box,
+        box,gender
       });
 
       await newProduct.save();

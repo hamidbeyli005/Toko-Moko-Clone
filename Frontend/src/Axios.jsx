@@ -6,6 +6,7 @@ function Axios() {
 
   const sizeMore = "48 sm x 45 sm";
   const title = "Surprise Big Box";
+  const category = "male";
 
   useEffect(() => {
     const getProducts = async () => {
@@ -28,24 +29,25 @@ function Axios() {
     const boxLength = products.map((el) => el.box);
     const boxElemenet = products.find((el) => el.title === title);
     const box =
-    boxElemenet == undefined
+      boxElemenet == undefined
         ? Math.max(...boxLength) + 1
         : boxElemenet.box;
 
+    const gender = { "male": "m", "famale": "f", "other": "o" }[category]
 
-    await axios
-      .post("http://localhost:5000/api/products",{
-        product_id: "prod9",
+    await axios.post("http://localhost:5000/api/products", {
+        product_id: "prod17",
         title: title,
         price: 75,
         discount: 15,
         size,
         box,
+        gender,
         description:
           "Electronics Box hədiyyə qutuları oğlan və qız uşaqları üçün nəzərdə tutulmuşdur. Yaş qrupu: 3-12 Daxildir: məktəb ləvazimatları, elektronika",
         sizeMore,
-        category: "male",
-        
+        category,
+
       })
       .then((res) => {
         console.log(res);
@@ -57,7 +59,9 @@ function Axios() {
 
   return (
     <div>
-      Axios
+      <form action="/dbjs" method="get">
+        <input type="checkbox" class="filter2input" name="box"  value="1"/>
+      </form>
       <button onClick={click}>dscsdc</button>
     </div>
   );

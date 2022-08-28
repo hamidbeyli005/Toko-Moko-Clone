@@ -40,7 +40,10 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
 
-       
+        gender: {
+            type: String,
+            required: true,
+        },
         box: {
             type: Number,
             required: true,
