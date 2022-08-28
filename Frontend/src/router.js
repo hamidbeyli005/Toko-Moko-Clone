@@ -1,5 +1,6 @@
 import Home from "page/home/Home";
 import MainLayout from "page/MainLayout";
+import Axios from "./Axios";
 
 const routes = [
   {
@@ -10,12 +11,13 @@ const routes = [
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "/inbox",
-      //   element: <InboxLayout />,
-      // },
+      {
+        path:"/axios",
+        element:<Axios/>
+      }
     ],
   },
+ 
 ];
 
 export default routes;
