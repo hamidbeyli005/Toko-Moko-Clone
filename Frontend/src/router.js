@@ -1,6 +1,7 @@
-import Home from "page/home/Home";
+import Home from "page/home";
 import MainLayout from "page/MainLayout";
-import Axios from "./Axios";
+import Products from "page/products";
+import Product from "page/product";
 
 const routes = [
   {
@@ -12,8 +13,12 @@ const routes = [
         element: <Home />,
       },
       {
-        path:"/axios",
-        element:<Axios/>
+        path:"/products",
+        element:<Products/>
+      },
+      {
+        path:"/product/:id",
+        element:<Product/>
       }
     ],
   },

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function Axios() {
+function Api() {
   const [products, setProducts] = useState([]);
 
   const sizeMore = "48 sm x 45 sm";
@@ -33,7 +33,7 @@ function Axios() {
     const gender = { male: "m", famale: "f", other: "o" }[category];
 
     await axios
-      .post("http://localhost:5000/api/products", {
+      .post("/api/products", {
         product_id: "prod17",
         title: title,
         price: 75,
@@ -74,4 +74,4 @@ function Axios() {
   );
 }
 
-export default Axios;
+export default Api;

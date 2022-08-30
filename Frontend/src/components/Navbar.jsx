@@ -47,7 +47,7 @@ function Navi() {
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"sm"}`} />
 
               <Navbar.Brand href="/">
-                <img src="./images/logo.png" alt="" />
+                <img src="/images/logo.png" alt="" />
               </Navbar.Brand>
 
               <Navbar.Offcanvas
