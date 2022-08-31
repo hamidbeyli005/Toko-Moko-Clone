@@ -63,7 +63,7 @@ function Navi() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <NavDropdown title="Məhsullar" id="basic-nav-dropdown">
+                    <NavDropdown  title="Məhsullar" id="basic-nav-dropdown">
                       <Link className="dropdown-item" to="/products?gender=f">
                         Oğlan uşağı
                       </Link>

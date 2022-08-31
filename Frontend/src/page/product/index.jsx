@@ -18,7 +18,7 @@ function Product() {
 
   const product = state.find((product) => product._id === id);
   if (state) {
-    return <div>product: {product.title}</div>;
+    return <div>product: {product?.title}</div>;
   }
 }
 

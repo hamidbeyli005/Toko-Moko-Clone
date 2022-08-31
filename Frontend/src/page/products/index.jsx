@@ -11,6 +11,59 @@ import Card from "./Card";
 import Loader from "Loader";
 import Filter from "./components/Filter";
 
+const Header = styled.h4`
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d2123;
+`;
+const Ul = styled.ul`
+  padding-left: 14px;
+
+  > li {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 14px;
+    ul {
+      padding: 0;
+      margin-top: 8px;
+
+      li {
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 4px;
+        user-select: none;
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          input {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+`;
+const Submit = styled.input`
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #43ba7f;
+  border: none;
+  border-radius: 22px;
+  width: 80%;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  transition: 300ms all;
+  border: 1px solid #43ba7f;
+  &:hover {
+    background: #fff;
+    color: #43ba7f;
+    border: 1px solid #43ba7f;
+  }
+`;
+
 const Breadrumb = styled.ol`
   padding-top: 30px;
   display: flex;
@@ -52,18 +105,34 @@ const Flex = styled.div`
 `;
 
 function Products() {
-  const state = useSelector((state) => state.products.products);
+  // const state = useSelector((state) => state.products.products);
   const [loader, setLoader] = useState(true);
-  // const dispatch = useDispatch();
+  const [state, setState] = useState();
+  const [filter, setFilter] = useState({
+    category: "",
+    sort: "",
+  });
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const res = await axios.get(`/api/products`);
-  //     await dispatch(products(res.data.products));
-  //     setLoader(false)
-  //   };
-  //   getProducts();
-  // }, []);
+  useEffect(() => {
+    const getProducts = async () => {
+      const res = await axios.get(
+        `/api/products?limit=${filter.category}&${filter.sort}`
+      );
+      res ? setState(res.data.products) : null;
+    };
+    getProducts();
+  }, []);
+
+  const submitHandle = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    console.log(name, value);
+    setFilter({ ...filter, [name]: value });
+    // console.log(e.target.box[].checked);
+    console.log(filter);
+    // console.log(filter);
+  };
+
   if (!state) {
     return <Loader />;
   }
@@ -93,7 +162,85 @@ function Products() {
         </Row>
         <Row>
           <Col md="3">
-            <Filter products={state} />
+            {/* <Filter products={state} /> */}
+            <form onSubmit={submitHandle}>
+              <Header>Əlaqəli kateqoriyalar</Header>
+              <Ul>
+                <li>
+                  Oyuncaqlar
+                  <ul>
+                    <li>
+                      <label>
+                        <input type="checkbox" name="gender" value="m" />
+                        Oğlan uşağı
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" name="gender" value="f" />
+                        Qız uşağı
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type="checkbox" name="gender" value="o" />
+                        Digər yaş qrupları
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Qutular
+                  <ul>
+                    {state
+                      .filter(
+                        (a, i) =>
+                          state.findIndex((s) => a.title === s.title) === i
+                      )
+                      .map((product, index) => (
+                        <li key={index}>
+                          <label>
+                            {
+                              <input
+                                type="checkbox"
+                                name="box"
+                                value={product.box}
+                              />
+                            }
+                            {product.title}
+                          </label>
+                        </li>
+                      ))}
+                  </ul>
+                </li>
+                <li>
+                  Qutu ölçüləri
+                  <ul>
+                    {state
+                      .filter(
+                        (a, i) =>
+                          state.findIndex((s) => a.sizeMore === s.sizeMore) ===
+                          i
+                      )
+                      .map((product, index) => (
+                        <li key={index}>
+                          <label>
+                            {
+                              <input
+                                type="checkbox"
+                                name="box"
+                                value={product.size}
+                              />
+                            }
+                            {product.sizeMore}
+                          </label>
+                        </li>
+                      ))}
+                  </ul>
+                </li>
+              </Ul>
+              <Submit type="submit" value="Sürprizləri Axtarın"></Submit>
+            </form>
           </Col>
           <Col>
             <ProdLength>{state.length} məhsul tapıldı</ProdLength>
