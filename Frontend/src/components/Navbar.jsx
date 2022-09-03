@@ -46,8 +46,10 @@ function Navi() {
             <Navbar expand={"lg"} className="pt-1 px-2 ">
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"sm"}`} />
 
-              <Navbar.Brand href="/">
-                <img src="/images/logo.png" alt="" />
+              <Navbar.Brand>
+                <NLink to="/">
+                  <img src="/images/logo.png" alt="" />
+                </NLink>
               </Navbar.Brand>
 
               <Navbar.Offcanvas
@@ -63,7 +65,7 @@ function Navi() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <NavDropdown  title="Məhsullar" id="basic-nav-dropdown">
+                    <NavDropdown title="Məhsullar" id="basic-nav-dropdown">
                       <Link className="dropdown-item" to="/products?gender=f">
                         Oğlan uşağı
                       </Link>

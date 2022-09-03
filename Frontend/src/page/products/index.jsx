@@ -125,12 +125,13 @@ function Products() {
 
   const submitHandle = (e) => {
     e.preventDefault();
+
+    
+  };
+  const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     setFilter({ ...filter, [name]: value });
-    // console.log(e.target.box[].checked);
-    console.log(filter);
-    // console.log(filter);
   };
 
   if (!state) {
@@ -171,7 +172,7 @@ function Products() {
                   <ul>
                     <li>
                       <label>
-                        <input type="checkbox" name="gender" value="m" />
+                        <input type="checkbox" name="gender" value="m"  />
                         Oğlan uşağı
                       </label>
                     </li>
@@ -205,6 +206,7 @@ function Products() {
                                 type="checkbox"
                                 name="box"
                                 value={product.box}
+                               
                               />
                             }
                             {product.title}
