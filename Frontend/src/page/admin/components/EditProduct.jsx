@@ -4,9 +4,8 @@ import Col from "react-bootstrap/Col";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import Loader from "Loader";
-
-import toast, { Toaster } from "react-hot-toast";
 
 function EditProduct({ prod }) {
   const [loader, setLoader] = useState(true);
@@ -21,7 +20,9 @@ function EditProduct({ prod }) {
   useEffect(() => {
     getProducts();
   }, []);
+
   const [product, setProduct] = useState(prod);
+  const [images, setImages] = useState();
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -29,39 +30,73 @@ function EditProduct({ prod }) {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newProd = async () => {
       const sizeLength = products.map((el) => el.size);
-      const sizeElemenet = products.find((el) => el.sizeMore === sizeMore);
+      const sizeElemenet = products.find(
+        (el) => el.sizeMore === product.sizeMore
+      );
       const size =
         sizeElemenet == undefined
           ? Math.max(...sizeLength) + 1
           : sizeElemenet.size;
 
       const boxLength = products.map((el) => el.box);
-      const boxElemenet = products.find((el) => el.title === title);
+      const boxElemenet = products.find((el) => el.title === product.title);
       const box =
         boxElemenet == undefined ? Math.max(...boxLength) + 1 : boxElemenet.box;
 
       const gender = { male: "m", famale: "f", other: "o" }[product.category];
 
-      axios
+      if (!images) return alert("No Image Upload");
+
+      await axios
         .put(`/api/products/${product._id}`, {
           ...product,
+          images,
           size,
           box,
           gender,
         })
         .then(() => {
-          toast.success("Mehsul Güncellendi");
+          setProduct({
+            title: "",
+            description: "",
+            price: "",
+            discount: "",
+            sizeMore: "",
+            product_id: "",
+            category: "",
+          });
+          setImages();
+          e.target.file_up.value = null;
         })
         .catch((err) => {
-          toast.error(err.request.responseText);
+          console.log(err.request.responseText);
         });
     };
     newProd();
     getProducts();
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    try {
+      const file = e.target.files[0];
+      if (!file) return alert("File not exist.");
+
+      let formData = new FormData();
+
+      formData.append("image", file);
+
+      const res = await axios.post("/api/upload", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+      setImages(res.data);
+    } catch (err) {
+      alert(err.response.data.msg);
+    }
   };
 
   if (loader) {
@@ -108,6 +143,16 @@ function EditProduct({ prod }) {
                     </Input>
                   </Col>
                 </Row>
+                <FormGroup>
+                  <Label for="exampleFile">Product Image</Label>
+                  <Input
+                    className="upload"
+                    type="file"
+                    name="image"
+                    id="file_up"
+                    onChange={handleUpload}
+                  />
+                </FormGroup>
               </FormGroup>
 
               <FormGroup>

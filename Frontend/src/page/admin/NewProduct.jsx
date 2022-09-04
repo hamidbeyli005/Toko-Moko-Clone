@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "Loader";
+import toast from "react-hot-toast";
 
 function NewProduct(value) {
   const [loader, setLoader] = useState(true);
@@ -21,19 +22,16 @@ function NewProduct(value) {
     getProducts();
   }, []);
 
-  const [product, setProduct] = useState(
-   {
-          title: "",
-          description: "",
-          price: "",
-          discount: "",
-          sizeMore: "",
-          product_id: "",
-          category: "male",
-        }
-  );
-
- 
+  const [product, setProduct] = useState({
+    title: "",
+    description: "",
+    price: "",
+    discount: "",
+    sizeMore: "",
+    product_id: "",
+    category: "male",
+  });
+  const [images, setImages] = useState();
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -43,24 +41,32 @@ function NewProduct(value) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newProd = async () => {
       const sizeLength = products.map((el) => el.size);
-      const sizeElemenet = products.find((el) => el.sizeMore === sizeMore);
+      const sizeElement = products.find(
+        (el) => el.sizeMore === product.sizeMore
+      );
       const size =
-        sizeElemenet == undefined
+        sizeElement == undefined
           ? Math.max(...sizeLength) + 1
-          : sizeElemenet.size;
+          : sizeElement.size;
+
 
       const boxLength = products.map((el) => el.box);
-      const boxElemenet = products.find((el) => el.title === title);
+      const boxElemenet = products.find((el) => el.title === product.title);
       const box =
         boxElemenet == undefined ? Math.max(...boxLength) + 1 : boxElemenet.box;
 
       const gender = { male: "m", famale: "f", other: "o" }[product.category];
 
+      if (!images)
+        return toast.error("Resim yuklendıkten sonra yenıden deneyın...");
+
       axios
-        .post("http://localhost:5000/api/products", {
+        .post("/api/products", {
           ...product,
+          images,
           size,
           box,
           gender,
@@ -73,8 +79,10 @@ function NewProduct(value) {
             discount: "",
             sizeMore: "",
             product_id: "",
-            category: "",
+            category: "male",
           });
+          setImages();
+          e.target.file_up.value = null;
         })
         .catch((err) => {
           console.log(err.request.responseText);
@@ -84,6 +92,24 @@ function NewProduct(value) {
     getProducts();
   };
 
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    try {
+      const file = e.target.files[0];
+      if (!file) return alert("File not exist.");
+
+      let formData = new FormData();
+
+      formData.append("image", file);
+
+      const res = await axios.post("/api/upload", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+      setImages(res.data);
+    } catch (err) {
+      alert(err.response.data.msg);
+    }
+  };
 
   if (loader) {
     return <Loader />;
@@ -97,7 +123,7 @@ function NewProduct(value) {
               <FormGroup>
                 <Label for="title">Title</Label>
                 <Row>
-                  <Col md={8}>
+                  <Col md={7}>
                     <Input
                       className="mb-2"
                       id="title"
@@ -108,7 +134,7 @@ function NewProduct(value) {
                       onChange={handleChangeInput}
                     ></Input>
                   </Col>
-                  <Col md={4}>
+                  <Col md={3}>
                     <Input
                       id="title"
                       name="title"
@@ -127,6 +153,17 @@ function NewProduct(value) {
                           </option>
                         ))}
                     </Input>
+                  </Col>
+                  <Col md={2}>
+                    <div className="upload">
+                      <input
+                        style={{ maxWidth: "210px" }}
+                        type="file"
+                        name="image"
+                        id="file_up"
+                        onChange={handleUpload}
+                      />
+                    </div>
                   </Col>
                 </Row>
               </FormGroup>

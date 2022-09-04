@@ -67,7 +67,7 @@ function Card({ product ,heart,to}) {
           <img src="/icons/heart.png" alt="" />
         </Heart>}
        
-        <Image src="/icons/box.png"></Image>
+        <Image src={product.images.url}></Image>
         <Text>
           <span style={{fontSize:"16px",display:"block"}}> {product.title}</span>
           <span style={{fontSize:"14px"}}>Ölçü:{product.sizeMore}</span>

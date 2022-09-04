@@ -117,7 +117,7 @@ const productCtrl = {
         size,
         sizeMore,
         category,
-        box,gender
+        box,gender,images
       });
 
       await newProduct.save();
@@ -157,7 +157,7 @@ const productCtrl = {
           size,
           sizeMore,
           category,
-          box,
+          box,images
         }
       );
 

@@ -46,10 +46,9 @@ function AdminProduct() {
     return (
       <Container fluid="md">
         <Row>
-          <Col style={{ display: "flex", gap: "100px", background: "#858383" }}>
+          <Col style={{ display: "flex", gap: "50px", background: "#858383" }}>
             <Left>
-              <img src="/icons/box.png"></img>
-              <input type="file" name="image" id="image" />
+              <img src={product.images.url}></img>
             </Left>
             <Right>
               <EditProduct

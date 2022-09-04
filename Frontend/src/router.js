@@ -9,7 +9,7 @@ import Register from "page/auth/Register";
 import AdminLayout from "page/admin/adminLayout";
 import { useSelector } from "react-redux";
 import EditProducts from "page/admin/components/EditProducts";
-import AdminProduct from "page/admin/components/AdminProduct";
+import AdminProduct from "page/admin/components/AdminProducts";
 
 
 const routes = [

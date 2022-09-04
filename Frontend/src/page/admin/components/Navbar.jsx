@@ -52,7 +52,7 @@ const logoutUser = async () => {
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"sm"}`} />
 
             <Navbar.Brand>
-              <NLink to="/">ADMIN PAGE</NLink>
+              <NLink to="/">ADMIN PANEL</NLink>
             </Navbar.Brand>
 
             <Navbar.Offcanvas
