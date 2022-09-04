@@ -59,10 +59,10 @@ const Price = styled.p`
   margin-bottom: 0;
 `;
 
-function Card({ product ,heart}) {
+function Card({ product ,heart,to}) {
   return (
     <Box>
-      <Link to={`/product/${product._id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/${to}/${product._id}`} style={{ textDecoration: "none" }}>
         {heart&&  <Heart>
           <img src="/icons/heart.png" alt="" />
         </Heart>}

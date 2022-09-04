@@ -99,8 +99,10 @@ const productCtrl = {
         sizeMore,
         category,
         size,
-        box,gender
+        box,gender,images
       } = req.body;
+      if(!images) return res.status(400).json({msg: "No image upload"})
+
 
       const product = await Products.findOne({ product_id });
       if (product)
@@ -142,7 +144,7 @@ const productCtrl = {
         size,
         sizeMore,
         category,
-        box,
+        box,images
       } = req.body;
 
       await Products.findOneAndUpdate(

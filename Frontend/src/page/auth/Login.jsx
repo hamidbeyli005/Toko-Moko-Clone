@@ -25,7 +25,7 @@ function Login() {
 
       localStorage.setItem("firstLogin", true);
 
-      navigate("/admin", { replace: true });
+      navigate("/admin/upload", { replace: true });
     } catch (err) {
       alert(err.response.data.msg);
     }
@@ -92,9 +92,9 @@ function Login() {
             </Button>
           </Form>
 
-          <FormGroup>
+          {/* <FormGroup>
             <Link to="/admin/register">Register</Link>
-          </FormGroup>
+          </FormGroup> */}
         </Col>
       </Row>
     </Container>

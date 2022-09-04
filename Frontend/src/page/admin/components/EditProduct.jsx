@@ -4,10 +4,11 @@ import Col from "react-bootstrap/Col";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import Loader from "Loader";
 
-function NewProduct(value) {
+import toast, { Toaster } from "react-hot-toast";
+
+function EditProduct({ prod }) {
   const [loader, setLoader] = useState(true);
   const [products, setProducts] = useState();
 
@@ -20,20 +21,7 @@ function NewProduct(value) {
   useEffect(() => {
     getProducts();
   }, []);
-
-  const [product, setProduct] = useState(
-   {
-          title: "",
-          description: "",
-          price: "",
-          discount: "",
-          sizeMore: "",
-          product_id: "",
-          category: "male",
-        }
-  );
-
- 
+  const [product, setProduct] = useState(prod);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -59,31 +47,22 @@ function NewProduct(value) {
       const gender = { male: "m", famale: "f", other: "o" }[product.category];
 
       axios
-        .post("http://localhost:5000/api/products", {
+        .put(`/api/products/${product._id}`, {
           ...product,
           size,
           box,
           gender,
         })
         .then(() => {
-          setProduct({
-            title: "",
-            description: "",
-            price: "",
-            discount: "",
-            sizeMore: "",
-            product_id: "",
-            category: "",
-          });
+          toast.success("Mehsul Güncellendi");
         })
         .catch((err) => {
-          console.log(err.request.responseText);
+          toast.error(err.request.responseText);
         });
     };
     newProd();
     getProducts();
   };
-
 
   if (loader) {
     return <Loader />;
@@ -258,4 +237,4 @@ function NewProduct(value) {
   }
 }
 
-export default NewProduct;
+export default EditProduct;

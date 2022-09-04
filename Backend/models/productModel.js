@@ -44,6 +44,10 @@ const productSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        images:{
+            type: Object,
+            required: true
+        },
         box: {
             type: Number,
             required: true,

@@ -8,6 +8,8 @@ import Login from "page/auth/Login";
 import Register from "page/auth/Register";
 import AdminLayout from "page/admin/adminLayout";
 import { useSelector } from "react-redux";
+import EditProducts from "page/admin/components/EditProducts";
+import AdminProduct from "page/admin/components/AdminProduct";
 
 
 const routes = [
@@ -41,12 +43,21 @@ const routes = [
 
         element: <NewProduct />,
       },
+      {
+        path: "products",
+
+        element: <EditProducts />,
+      },
+      {
+        path: "product/:id",
+
+        element: <AdminProduct />,
+      },
     ],
   },
   {
-    path: "register",
+    path: "/admin/register",
     element: <Register />,
-    auth: true,
   },
   {
     path: "/admin/login",

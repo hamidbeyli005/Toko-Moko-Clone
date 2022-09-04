@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  user: localStorage.getItem("firstLogin"),
+  user: null,
 };
 
 const userSlice = createSlice({

@@ -1,30 +1,17 @@
 import axios from "axios";
+import { Toaster } from "react-hot-toast";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import Navi from "./components/Navbar";
 
 function AdminLayout() {
-  const navigate = useNavigate();
 
-  const logoutUser = async () => {
-    await axios.get("/user/logout");
-    localStorage.removeItem("firstLogin");
-    navigate("/admin/login", { replace: true });
-  };
 
   return (
     <div>
-      <h3
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 0 0 0",
-        }}
-      >
-        Admin Page
-      </h3>
-      <Button onClick={logoutUser} color="danger">
-        logout
-      </Button>
+      
+      <Navi/>
+      
+      <Toaster  />
 
       <Outlet />
     </div>

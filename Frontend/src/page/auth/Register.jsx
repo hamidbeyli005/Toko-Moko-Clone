@@ -35,7 +35,7 @@ function Register() {
 
   return (
     <Container fluid="sm">
-      <Row>
+      {/* <Row>
         <Col
           className="p-5"
           style={{
@@ -92,7 +92,7 @@ function Register() {
             <Link to="/admin/login">Login</Link>
           </FormGroup>
         </Col>
-      </Row>
+      </Row> */}
     </Container>
   );
 }

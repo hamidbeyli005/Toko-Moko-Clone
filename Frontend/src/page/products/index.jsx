@@ -248,7 +248,7 @@ function Products() {
             <ProdLength>{state.length} məhsul tapıldı</ProdLength>
             <Flex>
               {state.map((product, index) => (
-                <Card key={index} product={product} />
+                <Card to="product" key={index} product={product} />
               ))}
             </Flex>
           </Col>
