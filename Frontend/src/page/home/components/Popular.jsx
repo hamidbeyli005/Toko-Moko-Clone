@@ -199,6 +199,7 @@ function Popular({ title, banner }) {
       id: 6,
     },
   ];
+
   return (
     <Wrapper>
       <Container fluid="lg">
